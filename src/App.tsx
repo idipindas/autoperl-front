@@ -19,9 +19,7 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        {/* <main>This app is using the dark mode</main>
-        <Checkbox /> check
-        <Test /> */}
+       
         <Layout/>
       </ThemeProvider>
     </>
