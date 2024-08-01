@@ -97,7 +97,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography sx={{ display:'100%'}} variant="h6" noWrap component="div">
+          <Typography sx={{ width:'100%',display:'inline-flex'}} variant="h6" noWrap component="div">
             AUTOPERL
           </Typography>
 
