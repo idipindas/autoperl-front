@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -10,16 +10,17 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { sideBarMenus } from '../../constants/sidebar/Sidebar';
 
 export default function TemporaryDrawer() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(true)}>
       <List>
         {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem key={text} disablePadding>
@@ -31,20 +32,26 @@ export default function TemporaryDrawer() {
             </ListItemButton>
           </ListItem>
         ))} */}
-        LOGO
+        LOGO 
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem key={'Plans'} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon /> 
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"Plans"} />
             </ListItemButton>
           </ListItem>
-        ))}
+          <ListItem key={'Services'} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon /> 
+              </ListItemIcon>
+              <ListItemText primary={"Services"} />
+            </ListItemButton>
+          </ListItem>
       </List>
     </Box>
   );
@@ -52,7 +59,7 @@ export default function TemporaryDrawer() {
   return (
     <div>
       {/* <Button onClick={toggleDrawer(true)}>Open drawer</Button> */}
-      <Drawer open={true} onClose={toggleDrawer(false)}>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
       </Drawer>
     </div>
