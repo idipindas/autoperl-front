@@ -5,7 +5,8 @@ import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import Layout from "./components/Layout/Layout";
+// import Layout from "./components/Layout/Layout";
+import AppRouter from "./routes/AppRouter";
 
 const darkTheme = createTheme({
   palette: {
@@ -19,8 +20,7 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-       
-        <Layout/>
+        <AppRouter />
       </ThemeProvider>
     </>
   );
