@@ -1,13 +1,16 @@
-
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { ROUTE_PATHS } from './routePaths';
 
-const isAuthenticated = () => {
-  // Replace with your authentication logic
-  return !!localStorage.getItem('token'); // Example using a token
+const isAuthenticated = (): boolean => {
+  return !!localStorage.getItem('accessToken');
 };
 
-const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+interface PrivateRouteProps {
+  children: JSX.Element;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to={ROUTE_PATHS.LOGIN} />;
 };
 
