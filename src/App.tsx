@@ -9,7 +9,7 @@ import Layout from "./components/Layout/Layout";
 
 const darkTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
   },
 });
 function App() {

@@ -86,10 +86,10 @@ export default function PersistentDrawerLeft() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} >
         <Toolbar>
           <IconButton
-            color="inherit"
+            color="success"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -97,11 +97,11 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography sx={{ width:'100%',display:'inline-flex'}} variant="h6" noWrap component="div">
+          <Typography sx={{ width:'100', display:'inline-flex'}} variant="h6" noWrap component="div">
             AUTOPERL
           </Typography>
 
-          <Box sx={{ display: 'flex', width: '90%', textAlign: 'end',justifyContent: 'end' }}>
+          <Box sx={{ display: 'flex', width: '100%', textAlign: 'end',justifyContent: 'end' }}>
 
     <AccountCircleIcon fontSize='large'/>
 </Box>
