@@ -2,12 +2,15 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { ROUTE_PATHS } from './routePaths';
 
-const isAuthenticated = () => {
-  // Replace with your authentication logic
-  return !!localStorage.getItem('token'); // Example using a token
+const isAuthenticated = (): boolean => {
+  return !!localStorage.getItem('accessToken');
 };
 
-const PublicRoute = ({ children }: { children: JSX.Element }) => {
+interface PublicRouteProps {
+  children: JSX.Element;
+}
+
+const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   return isAuthenticated() ? <Navigate to={ROUTE_PATHS.DASHBOARD} /> : children;
 };
 
