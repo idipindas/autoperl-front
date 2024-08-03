@@ -19,6 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { ROUTE_PATHS } from '../../../routes/routePaths';
+import { Button, Menu, MenuItem } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -73,7 +76,18 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open2 = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,6 +95,13 @@ export default function PersistentDrawerLeft() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    handleClose()
+    navigate(ROUTE_PATHS.LOGIN);
+
   };
 
   return (
@@ -102,8 +123,18 @@ export default function PersistentDrawerLeft() {
           </Typography>
 
           <Box sx={{ display: 'flex', width: '90%', textAlign: 'end',justifyContent: 'end' }}>
+{/* <Button onClick={handleClick}> */}
+<IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+          >    <AccountCircleIcon fontSize='large' />
+                    </IconButton>
 
-    <AccountCircleIcon fontSize='large'/>
+    {/* </Button> */}
 </Box>
         </Toolbar>
 
@@ -155,7 +186,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
+        {/* <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
@@ -181,8 +212,22 @@ export default function PersistentDrawerLeft() {
           tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
+        <Outlet/>
       </Main>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open2}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
     </Box>
   );
 }
