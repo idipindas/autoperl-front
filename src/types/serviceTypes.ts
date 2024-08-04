@@ -1,7 +1,8 @@
 export interface addServiceType{
     serviceName:string,
     serviceDescription:string,
-    servicePrice:number
+    servicePrice:number,
+    documentStatus?:boolean
 }
 export interface ServiceList {
     _id: string;
