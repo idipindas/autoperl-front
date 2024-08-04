@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useEffect, useState } from "react";
 // import { ServiceList } from "../../types/serviceTypes";
-import { getAllServices } from "../../services/serviceList";
+import { deleteService, getAllServices } from "../../services/serviceList";
 import dayjs from "dayjs";
 import { KeepMountModal } from "../../components/ui/modal/KeepMountModal";
 import ServiceForm from "./components/ServiceForm";
@@ -22,8 +22,13 @@ interface Column {
 const ServiceList = () => {
   const [serviceData, setServiceData] = useState<any[]>([]);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
   const handleOpenAddModal = () => setOpenAddModal(true);
+  const handleOpenEditModal = () => setOpenEditModal(true);
+
   const handleCloseAddModal = () => setOpenAddModal(false);
+  const handleCloseEditModal = () => setOpenEditModal(false);
 
   const columns: Column[] = [
     { id: "sl", label: "Sl No.", minWidth: 50 },
@@ -70,6 +75,20 @@ const ServiceList = () => {
     }
   };
 
+
+  const handleDeleteServices = async (id: string) => {
+    try {
+      const apiResponse = await deleteService( id);
+      if (apiResponse.statusCode === 200) {
+        alert("Service Deleted successfully");
+        getAllServices()
+        // onCancel();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     handleGetServiceList();
   }, [openAddModal]);
@@ -81,10 +100,22 @@ const ServiceList = () => {
           <Button onClick={() => alert(`View ${row.serviceName}`)}>
             <PageviewIcon />
           </Button>
-          <Button onClick={() => alert(`Edit ${row.serviceName}`)}>
+          <Button
+            onClick={() => {
+              handleOpenEditModal();
+              setId(row?.id);
+              console.log("c", columnId, value, row);
+            }}
+          >
             <EditIcon />
           </Button>
-          <Button onClick={() => alert(`Delete ${row.serviceName}`)}>
+          <Button 
+              onClick={() => {
+                if (window.confirm(`Are you sure you want to delete ${row.serviceName}?`)) {
+                  handleDeleteServices(row.id);
+                }
+              }}
+          >
             <DeleteIcon />
           </Button>
         </>
@@ -122,7 +153,12 @@ const ServiceList = () => {
       </div>
       <KeepMountModal open={openAddModal} onClose={handleCloseAddModal}>
         <>
-       <ServiceForm onCancel={handleCloseAddModal}/>
+          <ServiceForm onCancel={handleCloseAddModal} />
+        </>
+      </KeepMountModal>
+      <KeepMountModal open={openEditModal} onClose={handleCloseEditModal}>
+        <>
+          <ServiceForm onCancel={handleCloseEditModal} id={id} />
         </>
       </KeepMountModal>
     </>

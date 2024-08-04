@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
@@ -7,11 +7,16 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { addServiceType } from "../../../types/serviceTypes";
-import { createService } from "../../../services/serviceList";
+import { addServiceType, ServiceList } from "../../../types/serviceTypes";
+import {
+  createService,
+  getOneService,
+  updateService,
+} from "../../../services/serviceList";
 
 interface ServiceFormProps {
   onCancel: () => void;
+  id?: string;
 }
 
 const validationSchema = Yup.object({
@@ -24,32 +29,65 @@ const validationSchema = Yup.object({
   documentStatus: Yup.boolean().required("Status is required"),
 });
 
-const ServiceForm: React.FC<ServiceFormProps> = ({ onCancel }) => {
+const ServiceForm: React.FC<ServiceFormProps> = ({ onCancel, id }) => {
+  const [data, setData] = useState<ServiceList | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      getOneService(id)
+        .then((response) => {
+          if (response.statusCode === 200) {
+            setData(response.data.serviceList);
+          }
+        })
+        .catch(console.error);
+    }
+    if (!id) {
+      formik.resetForm();
+    }
+  }, [id]);
+
   const formik = useFormik({
     initialValues: {
-      serviceName: "",
-      serviceDescription: "",
-      servicePrice: 0,
-      documentStatus: false,
+      serviceName: data ? data.serviceName : "",
+      serviceDescription: data ? data.serviceDescription : "",
+      servicePrice: data ? data.servicePrice : 0,
+      documentStatus: data ? data.documentStatus : false,
     },
+    enableReinitialize: true, // Reinitialize form values when data changes
     validationSchema: validationSchema,
     onSubmit: async (values: addServiceType) => {
-      console.log(values);
-      handleAddService(values)
+      if (id) {
+        handleUpdateService(id, values);
+      } else {
+        handleAddService(values);
+      }
     },
   });
 
-  const handleAddService = async(data:addServiceType)=>{
-    try{
-        const apiResponse = await createService(data)
-        if(apiResponse.statusCode ===201){
-            alert("Service added successfully");
-            onCancel();
-        }
-    }catch(error){
-        console.error(error);
+  const handleAddService = async (values: addServiceType) => {
+    try {
+      const apiResponse = await createService(values);
+      if (apiResponse.statusCode === 201) {
+        alert("Service added successfully");
+        onCancel();
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
+
+  const handleUpdateService = async (id: string, values: addServiceType) => {
+    try {
+      const apiResponse = await updateService(values, id);
+      if (apiResponse.statusCode === 200) {
+        alert("Service updated successfully");
+        onCancel();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Box
@@ -58,7 +96,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onCancel }) => {
       sx={{ display: "flex", flexDirection: "column", gap: 2, maxWidth: 400 }}
     >
       <Typography variant="h6" sx={{ fontWeight: "600" }} component="h2">
-        Service Form
+        {id ? "Edit Service" : "Add Service"}
       </Typography>
 
       <TextField
