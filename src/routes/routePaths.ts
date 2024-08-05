@@ -3,4 +3,7 @@ export const ROUTE_PATHS = {
   SIGNUP: "/signup",
   DASHBOARD: "/dashboard",
   NOT_FOUND: "/not-found",
+
+  // service
+  SERVICE:"/service"
 };

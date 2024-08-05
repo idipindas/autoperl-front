@@ -7,6 +7,7 @@ import { ROUTE_PATHS } from './routePaths';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import NotFound from '../pages/NotFound/NotFound';
+import ServiceList from '../pages/services/ServiceList';
 
 const AppRouter: React.FC = () => {
   return (
@@ -15,6 +16,9 @@ const AppRouter: React.FC = () => {
         <Route path={ROUTE_PATHS.LOGIN} element={<PublicRoute><Login /></PublicRoute>} />
         <Route path={ROUTE_PATHS.SIGNUP} element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path={ROUTE_PATHS.DASHBOARD} element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+
+        <Route path={ROUTE_PATHS.SERVICE} element={<ServiceList/>} />
+
         <Route path={ROUTE_PATHS.NOT_FOUND} element={<NotFound />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.NOT_FOUND} />} />
       </Routes>
