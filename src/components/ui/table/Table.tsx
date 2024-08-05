@@ -43,7 +43,7 @@ const BaseTable: React.FC<BaseTableProps> = ({ columns, data, renderCell }) => {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 640 }}>
+      <TableContainer sx={{ maxHeight: 740 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

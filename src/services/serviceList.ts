@@ -4,7 +4,7 @@ import {
   getAllServicesApi,
   getOneServiceApi,
   updateServiceApi,
-} from "../api/auth/serviceApi";
+} from "../api/service/serviceApi";
 import { addServiceType } from "../types/serviceTypes";
 
 export const createService = async (data: addServiceType) => {
