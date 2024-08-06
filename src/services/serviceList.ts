@@ -1,6 +1,7 @@
 import {
   createServiceApi,
   deleteServiceApi,
+  getAllMinimalServicesApi,
   getAllServicesApi,
   getOneServiceApi,
   updateServiceApi,
@@ -37,6 +38,15 @@ export const getOneService = async (id: string) => {
 export const getAllServices = async () => {
   try {
     const response = await getAllServicesApi();
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const getAllMinialServices = async () => {
+  try {
+    const response = await getAllMinimalServicesApi();
     return response.data;
   } catch (error: any) {
     throw new Error(error.message);
