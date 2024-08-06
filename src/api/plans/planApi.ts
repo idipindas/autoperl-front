@@ -2,7 +2,7 @@ import { PlanCreateType } from "../../types/planTypes";
 import axiosInstance from "../axios/axiosInstance";
 
 export const createPlanApi = (data: PlanCreateType) =>
-  axiosInstance.post("/plan", data);
+  axiosInstance.post("/plans", data);
 export const getOnePlanApi = (id: string) =>
   axiosInstance.get(`/plans/${id}`);
 export const getAllPlanApi = () =>

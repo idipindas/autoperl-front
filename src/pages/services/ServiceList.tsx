@@ -81,7 +81,7 @@ const ServiceList = () => {
       const apiResponse = await deleteService( id);
       if (apiResponse.statusCode === 200) {
         alert("Service Deleted successfully");
-        getAllServices()
+        handleGetServiceList()
         // onCancel();
       }
     } catch (error) {
