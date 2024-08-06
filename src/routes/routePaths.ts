@@ -5,5 +5,8 @@ export const ROUTE_PATHS = {
   NOT_FOUND: "/not-found",
 
   // service
-  SERVICE:"/service"
+  SERVICE:"/service",
+  // plans
+  PLANS:"/plans"
+
 };

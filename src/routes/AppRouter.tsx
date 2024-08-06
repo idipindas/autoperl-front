@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import NotFound from '../pages/NotFound/NotFound';
 import ServiceList from '../pages/services/ServiceList';
+import PlansList from '../pages/plans/plansList';
 
 const AppRouter: React.FC = () => {
   return (
@@ -18,6 +19,8 @@ const AppRouter: React.FC = () => {
         <Route path={ROUTE_PATHS.DASHBOARD} element={<PrivateRoute><Dashboard /></PrivateRoute>} />
 
         <Route path={ROUTE_PATHS.SERVICE} element={<ServiceList/>} />
+        <Route path={ROUTE_PATHS.PLANS} element={<PlansList/>} />
+
 
         <Route path={ROUTE_PATHS.NOT_FOUND} element={<NotFound />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.NOT_FOUND} />} />
