@@ -16,11 +16,15 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path={ROUTE_PATHS.LOGIN} element={<PublicRoute><Login /></PublicRoute>} />
         <Route path={ROUTE_PATHS.SIGNUP} element={<PublicRoute><Signup /></PublicRoute>} />
-        <Route path={ROUTE_PATHS.DASHBOARD} element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        {/* <Route path={ROUTE_PATHS.DASHBOARD} element={<PrivateRoute><Dashboard /></PrivateRoute>} />
 
         <Route path={ROUTE_PATHS.SERVICE} element={<ServiceList/>} />
-        <Route path={ROUTE_PATHS.PLANS} element={<PlansList/>} />
-
+        <Route path={ROUTE_PATHS.PLANS} element={<PlansList/>} /> */}
+      <Route path={ROUTE_PATHS.SIGNUP} element={<PublicRoute><Signup /></PublicRoute>} />
+        <Route path={ROUTE_PATHS.DASHBOARD} element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+          <Route path="services" element={<ServiceList />} />
+          <Route path="plans" element={<PlansList />} />
+        </Route>
 
         <Route path={ROUTE_PATHS.NOT_FOUND} element={<NotFound />} />
         <Route path="*" element={<Navigate to={ROUTE_PATHS.NOT_FOUND} />} />

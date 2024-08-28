@@ -22,6 +22,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ROUTE_PATHS } from "../../../routes/routePaths";
 import { Menu, MenuItem } from "@mui/material";
+import { sideBarMenus } from "../../../constants/sidebar/Sidebar";
 
 const drawerWidth = 240;
 
@@ -172,13 +173,13 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+          {sideBarMenus?.map((item:any,index) => (
+            <ListItem key={item?.label} disablePadding>
+              <ListItemButton onClick={()=>{navigate(item?.onclick)}}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={item?.label} />
               </ListItemButton>
             </ListItem>
           ))}
